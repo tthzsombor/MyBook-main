@@ -117,9 +117,6 @@ export function ProfileKereses() {
                             <button onClick={Keres}><i className="fa fa fa-search"></i></button>
                         </form>
                     </div>
-                    {/* Displays status and book id for debugging */}
-                    <p>statusz:{statusz}</p>
-                    <p>bookid:{bookid}</p>
                 </div>
 
                 {/* Displays the searched books */}
