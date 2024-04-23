@@ -26,11 +26,10 @@ export function MainPage() {
             <h1>Az oldalról</h1>
             <br />
             <h4>
-              Hogy miért ez a téma? A válasz egyszerű: mindketten szeretünk olvasni. A könyvek iránti érdeklődésünkből kifolyólag úgy gondoltuk létrehozunk egy online könyvtárat a könykedvelőknek, ahol tudját listázni, értékelni és tárolni könyveiket. Az oldal alapötlete ötvözi a klasszikus művelődési tevékenységet, valamint a 21. századi online felületet, ahol megoszthatunk dolgokat magunkról.
-              Ezen az oldalon nem másról oszthatjuk meg tapasztalatainkat, tetszésünket, mint az egyik legfontosabb tevékenységről: az olvasásról.
+              Hogy miért ez a téma? A válasz egyszerű: mindketten szeretünk olvasni. A könyvek iránti érdeklődésünkből kifolyólag úgy gondoltuk létrehozunk egy online könyvtárat a könykedvelőknek, ahol tudját listázni és tárolni könyveiket.
             </h4>
             <h4>
-              Azért készült, mert szeretünk olvasni, mindkettőnk egyik kedves szabadidő tevékenysége az olvasás, és mivel a 21. században az emberek szeretnek mindent megosztani és a telefonjukon csinálni, létrehoztunk egy online könyvtárat, ahol könyveiket tudják tárolni, értékelni, rangsorolni stb., valamint ezzel is szerettük volna egy kicsit felhívni a figyelmet erre, hogy olvasni jó.
+              Emellett reflektorfénybe helyezzük a könyveket, mint a művelődés, tudás gyarapításának legjobb eszközét.
             </h4>
             <br />
             <br />

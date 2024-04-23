@@ -176,7 +176,7 @@ export function ProfileProfile() {
         <>
             {/* Render user navigation */}
             <ProfileNav user={api.currentUser} />
-            <h1 style={{ textAlign: "center" }}>User Profile</h1>
+            <h1 style={{ textAlign: "center" }}>Könyveid</h1>
             <br />
             {/* Render filter buttons for book status */}
             <div>
