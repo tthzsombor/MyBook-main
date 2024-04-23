@@ -180,7 +180,7 @@ export function ProfileProfile() {
             <br />
             {/* Render filter buttons for book status */}
             <div>
-                <button style={{margin: 10}} onClick={() => handleFilterChange(0)}>All Books</button>
+                <button style={{margin: 10}} onClick={() => handleFilterChange(0)}>Összes könyv</button>
                 <button style={{margin: 10}} onClick={() => handleFilterChange(1)}>Tervben van</button>
                 <button style={{margin: 10}} onClick={() => handleFilterChange(2)}>Kiolvasva</button>
                 <button style={{margin: 10}} onClick={() => handleFilterChange(3)}>Most olvasom</button>

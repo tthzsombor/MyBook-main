@@ -9,6 +9,7 @@ import { AdminLogin } from './Components/Admin/AdminForm';
 import { ProfilMainPage } from './Components/Profile/MainPage/ProfileMainPage';
 import { ProfileProfile } from './Components/Profile/ProfileProfile/ProfileProfile';
 import { ProfileKereses } from './Components/Profile/Keres/ProfileKeres';
+import AdminProfile from './Components/Admin/AdminProfile';
 
 /**
  * The root component of the React application.
@@ -47,14 +48,14 @@ function App() {
               </LoggedIn>
             </>
           } />
+          
 
           {/* Routes for profile-related pages */}
           <Route path="/fooldal" element={<ProfilMainPage />} />
           <Route path="/profil" element={<ProfileProfile />} />
           <Route path="/kereses" element={<ProfileKereses />} />
-
-          {/* Route for admin login */}
-          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminProfile />} />
+        
         </Routes>
       </BrowserRouter>
     </div>
