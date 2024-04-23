@@ -55,7 +55,7 @@ export function ProfileProfile() {
             const content = await response.json() as UserBooks[];
             setuserbook(content);
             console.log(content);
-            
+
 
         }
 
@@ -84,23 +84,23 @@ export function ProfileProfile() {
     }, []);
 
 
-    
+
 
     const tervbenvan = userbook
-    .filter(userbook => userbook.statusid.toString().match('1'));
+        .filter(userbook => userbook.statusid.toString().match('1'));
 
     const kiolvasva = userbook
-    .filter(userbook => userbook.statusid.toString().match('2'));
+        .filter(userbook => userbook.statusid.toString().match('2'));
 
     const mostolvasom = userbook
-    .filter(userbook => userbook.statusid.toString().match('3'));
+        .filter(userbook => userbook.statusid.toString().match('3'));
 
     const szuneteltetem = userbook
-    .filter(userbook => userbook.statusid.toString().match('4'));
+        .filter(userbook => userbook.statusid.toString().match('4'));
 
     const abbahagytam = userbook
-    .filter(userbook => userbook.statusid.toString().match('5'));
-    
+        .filter(userbook => userbook.statusid.toString().match('5'));
+
 
     if (!api.currentUser) return null;
 
@@ -110,14 +110,14 @@ export function ProfileProfile() {
         <p>User Profile</p>
         {
             mostolvasom.map(
-                userbook=> 
-                <>
-                <h1>{userbook.bookid}</h1>
-                <p>{userbook.statusid}</p>
-                </>
+                userbook =>
+                    <>
+                        <h1>{userbook.bookid}</h1>
+                        <p>{userbook.statusid}</p>
+                    </>
             )
         }
-        
-       
+
+
     </>
 }

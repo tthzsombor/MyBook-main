@@ -2,30 +2,34 @@ import { createContext, useEffect, useState } from "react";
 import { User } from "./Components/Profile/User";
 import { Book } from "./Components/Profile/Book";
 
+// Create a context for the API
 export const ApiContext = createContext({
     error: '',
     login: async (email: string, password: string) => { },
     logout: () => { },
-
     register: async (email: string, username: string, password: string) => { },
-    //listAllUsers: async () => ([] as User[]),
     listAllBook: async () => ([] as Book[]),
-    deleteUser: async (id: int) => { },
-
+    deleteUser: async (id: number) => { },
     currentUser: null as (User | null),
 });
 
+// Define the props interface
 interface Props {
     children: React.ReactNode;
 }
 
+// Component for providing API functionality throughout the application
 export function ApiProvider({ children }: Props) {
+    // State for authentication token
     const [token, setToken] = useState('');
-    const [user, setUser] = useState(null as User | null)
-    const [error, setError] = useState('')
-    const [book, setBook] = useState(null as Book | null)
+    // State for current user
+    const [user, setUser] = useState(null as User | null);
+    // State for error messages
+    const [error, setError] = useState('');
+    // State for book data
+    const [book, setBook] = useState(null as Book | null);
 
-
+    // Effect to load token from local storage on component mount
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
@@ -33,6 +37,7 @@ export function ApiProvider({ children }: Props) {
         }
     }, []);
 
+    // Effect to load user data when token changes
     useEffect(() => {
         async function loadUserData() {
             const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/me`, {
@@ -41,7 +46,7 @@ export function ApiProvider({ children }: Props) {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 }
-            })
+            });
             if (response.status === 401) {
                 setToken('');
                 localStorage.removeItem('token');
@@ -49,7 +54,7 @@ export function ApiProvider({ children }: Props) {
                 return;
             }
             if (!response.ok) {
-                setError('An error occured, try again later');
+                setError('An error occurred, try again later');
                 return;
             }
             const userData = await response.json() as User;
@@ -63,17 +68,13 @@ export function ApiProvider({ children }: Props) {
         }
     }, [token]);
 
-
-
-
+    // API object containing authentication and user-related functions
     const apiObj = {
         currentUser: user,
         error,
-
+        // Function for user login
         login: async (email: string, password: string) => {
-            const loginData = {
-                email, password,
-            }
+            const loginData = { email, password };
 
             const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
                 method: 'POST',
@@ -91,14 +92,14 @@ export function ApiProvider({ children }: Props) {
             setToken(tokenObj.token);
             localStorage.setItem('token', tokenObj.token);
         },
+        // Function for user logout
         logout: () => {
             setToken('');
             localStorage.removeItem('token');
         },
+        // Function for user registration
         register: async (email: string, username: string, password: string) => {
-            const registerData = {
-                email, username, password,
-            }
+            const registerData = { email, username, password };
 
             const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/Register`, {
                 method: 'POST',
@@ -112,33 +113,9 @@ export function ApiProvider({ children }: Props) {
                 const errorObj = await response.json();
                 throw new Error(errorObj.message);
             }
-
-
         },
-        
-        /*
-        listAllBook: async (bookname: string, release: number, writer: string, genre: string) => {
-            async function loadBookData() {
-                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/books/searchName`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    }
-                })
-                if (!response.ok) {
-                    setError('An error occured, try again later');
-                    return;
-                }
-                const book = await response.json() as Book;
-                setBook(book);
-            }
-        }
-        */
-
     };
 
-    return <ApiContext.Provider value={apiObj}>
-        {children}
-    </ApiContext.Provider>
+    // Provide the API context to the children components
+    return <ApiContext.Provider value={apiObj}>{children}</ApiContext.Provider>;
 }
-

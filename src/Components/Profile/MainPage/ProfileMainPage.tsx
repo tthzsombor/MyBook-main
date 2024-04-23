@@ -5,13 +5,16 @@ import './ProfileMainPage.css';
 
 
 
-
+/**
+ * Designed Main Page for the user's profile
+ */
 export function ProfilMainPage() {
+   {/* Used to access the ApiContext */ }
    const api = useContext(ApiContext)
    if (!api.currentUser) return null;
 
 
-
+   //Make the page full screen
    function Teljes() {
       var el = document.querySelector('body');
       el?.requestFullscreen();

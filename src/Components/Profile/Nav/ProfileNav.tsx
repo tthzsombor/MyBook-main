@@ -5,82 +5,52 @@ import { useContext } from 'react'
 import { ApiContext } from '../../../api'
 import { User } from '../User'
 
+
+//The user object containing information about the current user
 interface Props {
     user: User;
 }
 
+
+//Opens the navigation sidebar
 function openNav() {
     document.getElementById("mySidenav")!.style.width = "270px";
     document.getElementById("main")!.style.marginLeft = "270px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-  }
-  
-  function closeNav() {
+}
+
+
+//Closes the navigation sidebar
+function closeNav() {
     document.getElementById("mySidenav")!.style.width = "0";
-    document.getElementById("main")!.style.marginLeft= "0";
+    document.getElementById("main")!.style.marginLeft = "0";
     document.body.style.backgroundColor = "white";
-  }
+}
 
 
+/**
+ * This component represents the navigation sidebar within the user's profile. It provides links to different pages and allows users to toggle the sidebar to access navigation options
+ */
 export function ProfileNav({ user }: Props) {
     const api = useContext(ApiContext)
 
     return <>
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-    <div id="mySidenav" className="sidenav">
-       <h3 className='user'>{user.username}</h3>    
-      <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>
-        ×
-      </a>
-      <Link className="fa fa-fw fa-home" to={'/fooldal'}>Főoldal</Link>
-      <Link className="nav-link fa fa-fw fa-user" to={'/profil'}>Profil</Link>
-      <Link className="nav-link fa fa-fw fa-search" to={'/kereses'}>Keresés</Link>
-      <Link className='nav-link fa fa-fw fa-sign-out' to={'/login'} onClick={api.logout}>Kijelentkezés</Link>
-    </div>
-    <div id="main">
-      <span style={{ fontSize: 30, cursor: "pointer" }} onClick={openNav} onDoubleClickCapture={closeNav}>☰</span>
-    </div>
-  </>
-    
-    
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <div id="mySidenav" className="sidenav"> {/* Sidebar container */}
+            <h3 className='user'>{user.username}</h3> {/* Displaying the username of the current user */}
+            <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>×</a> {/*  Close button to close the sidebar */}
+            <Link className="fa fa-fw fa-home" to={'/fooldal'}>Főoldal</Link> {/* Navigation links to Főoldal pages of the application */}
+            <Link className="nav-link fa fa-fw fa-user" to={'/profil'}>Profil</Link> {/* Navigation links to Profil pages of the application */}
+            <Link className="nav-link fa fa-fw fa-search" to={'/kereses'}>Keresés</Link>
+            {/* Navigation links to Keresés pages of the application */}
+            <Link className='nav-link fa fa-fw fa-sign-out' to={'/login'} onClick={api.logout}>Kijelentkezés</Link> {/* Log out of the user's prifile */}
+        </div>
+        <div id="main"> {/* Main container with a toggle button (☰) to open the sidebar */}
+            <span style={{ fontSize: 30, cursor: "pointer" }} onClick={openNav} onDoubleClickCapture={closeNav}>☰</span>
+        </div>
+    </>
+
+
 }
 
-
-
-{/*
-    <>
-            <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
-            <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-            <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-            <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-            <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-            <link href="assets/css/style.css" rel="stylesheet" />
-
-            <header id="header">
-                <div className="d-flex flex-column">
-                    <div className="profile">
-                        <h3 className='name'>
-                            {user.username}
-                        </h3>
-                    </div>
-                    <nav id="navbar" className="nav-menu navbar">
-                        <ul>
-                            <li>
-                                <Link className="nav-link" to={'/fooldal'}>Főoldal</Link>
-                            </li>
-                            <li>
-                                <Link className="nav-link" to={'/profil'}>Profil</Link>
-                            </li>
-                            <li>
-                                <Link className="nav-link" to={'/kereses'}>Keresés</Link>
-                            </li>
-                            <li>
-                                <Link className='nav-link' to={'/login'} onClick={api.logout}>Kijelentkezés</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-        </>
- */}
