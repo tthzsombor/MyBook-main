@@ -191,7 +191,7 @@ export function ProfileProfile() {
             {filteredBooks.map(userBook => {
                 const bookDetails = getBookDetails(userBook.bookid);
                 return (
-                    <div id="talalat" key={userBook.id}>
+                    <div style={{marginLeft: 150}} id="talalat" key={userBook.id}>
                         <div className="container-fluid">
                             <div className="kartya">
                                 {bookDetails && (

@@ -72,7 +72,7 @@ export function MainPage() {
 
           {/* Footer */}
           <footer>
-            Készítette: Tóth Zsombor
+           <h3> Készítette: Tóth Zsombor</h3>
           </footer>
         </div>
       </body>

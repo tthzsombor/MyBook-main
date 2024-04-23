@@ -1,21 +1,17 @@
 import { useState, useEffect } from "react";
-import { User } from "../Profile/User";
 import { NavBar } from "../NavBar/Nav";
 import './Admin.css'
 
-
-interface Props {
-    user: User;
-}
-
+// Define the Book interface
 interface Book {
     id: number;           // Unique identifier for the book
     bookname: string;     // Name of the book
-    genre: string;        // Genre of the book
+    genre: string;        // Genre of the book (if needed)
     release: string;      // Release date of the book
     writer: string;       // Author of the book
 }
 
+// AdminProfile component definition
 export function AdminProfile() {
     // State variables
     const [books, setBooks] = useState([] as Book[]); // Array to store books
@@ -37,8 +33,6 @@ export function AdminProfile() {
             setErrorMessage('Error loading all books');
         }
     }
-    loadAllBooks();
-
 
     // Function to add a new book
     const addBook = async () => {
@@ -102,67 +96,69 @@ export function AdminProfile() {
         loadAllBooks();
     }, []);
 
-    return (<>
-        <NavBar />
-        <div id="admin">
-            {/* Form to add a new book */}
-            <h2>Könyv hozzáadása</h2>
-            <input
-                type="text"
-                value={newBook.title || ""}
-                onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
-                placeholder="Cím" />
-            <input
-                type="number"
-                value={newBook.release || ""}
-                onChange={(e) => setNewBook({ ...newBook, release: e.target.value })}
-                placeholder="Kiadás éve" />
-            <input
-                type="text"
-                value={newBook.author || ""}
-                onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-                placeholder="Író" />
-            <button onClick={addBook}>Könyv hozzáadása</button>
-
-            {/* Book list */}
-            <h2>Könyvek</h2>
-            <ul>
-                {books.map((book) => (
-                    <li key={book.id}>
-                        {book.bookname} : {book.writer}
-                        <button onClick={() => removeBook(book.id)}>Törlés</button>
-                        <button onClick={() => setSelectedBook(book)}>Módosítás</button>
-                    </li>
-                ))}
-            </ul>
-
-            {/* Form to update a book */}
-            {selectedBook && (
-                <>
-                    <h2>Könyv módosítása</h2>
-                    <input
-                        type="text"
-                        value={selectedBook.bookname}
-                        onChange={(e) => setSelectedBook({ ...selectedBook, bookname: e.target.value })}
-                        placeholder="Title" />
-                    <input
-                        type="number"
-                        value={selectedBook.release}
-                        onChange={(e) => setSelectedBook({ ...selectedBook, release: e.target.value })}
-                        placeholder="Release" />
-                    <input
-                        type="text"
-                        value={selectedBook.writer}
-                        onChange={(e) => setSelectedBook({ ...selectedBook, writer: e.target.value })}
-                        placeholder="Author" />
-                    <button onClick={updateBook}>Feltöltés</button>
-                </>
-            )}
+    return (
+        <div className="admin-container">
+            <NavBar />
+            <div className="admin-content">
+                <div className="admin-section">
+                    <h2 className="admin-heading">Könyv hozzáadása</h2>
+                    <div className="admin-inputs">
+                        <input
+                            type="text"
+                            value={newBook.title || ""}
+                            onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
+                            placeholder="Cím" />
+                        <input
+                            type="number"
+                            value={newBook.release || ""}
+                            onChange={(e) => setNewBook({ ...newBook, release: e.target.value })}
+                            placeholder="Kiadás" />
+                        <input
+                            type="text"
+                            value={newBook.author || ""}
+                            onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
+                            placeholder="Író" />
+                        <button onClick={addBook} className="admin-button">Könyv hozzáadása</button>
+                    </div>
+                </div>
+                <div className="admin-section">
+                    <h2 className="admin-heading">Könyvek</h2>
+                    <ul className="admin-book-list">
+                        {books.map((book) => (
+                            <li key={book.id} className="admin-book-item">
+                                <span>{book.bookname} - {book.writer}</span>
+                                <button onClick={() => removeBook(book.id)} className="admin-remove-button">Törlés</button>
+                                <button onClick={() => setSelectedBook(book)} className="admin-update-button">Módosítás</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                {selectedBook && (
+                    <div className="admin-section">
+                        <h2 className="admin-heading">Módosítás</h2>
+                        <div className="admin-inputs">
+                            <input
+                                type="text"
+                                value={selectedBook.bookname}
+                                onChange={(e) => setSelectedBook({ ...selectedBook, bookname: e.target.value })}
+                                placeholder="Cím" />
+                            <input
+                                type="number"
+                                value={selectedBook.release}
+                                onChange={(e) => setSelectedBook({ ...selectedBook, release: e.target.value })}
+                                placeholder="Kiadás" />
+                            <input
+                                type="text"
+                                value={selectedBook.writer}
+                                onChange={(e) => setSelectedBook({ ...selectedBook, writer: e.target.value })}
+                                placeholder="Író" />
+                            <button onClick={updateBook} className="admin-button">Módosítás</button>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
-    </>
     );
 }
 
 export default AdminProfile;
-
-
