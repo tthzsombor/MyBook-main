@@ -129,7 +129,7 @@ export function AdminProfile() {
             <ul>
                 {books.map((book) => (
                     <li key={book.id}>
-                        {book.bookname} by {book.writer}
+                        {book.bookname} : {book.writer}
                         <button onClick={() => removeBook(book.id)}>Törlés</button>
                         <button onClick={() => setSelectedBook(book)}>Módosítás</button>
                     </li>
