@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { NavBar } from "../NavBar/Nav";
-import './Admin.css'
+import React, { useState, useEffect } from "react";
+import { NavBar } from "../NavBar/Nav"; // Importing the NavBar component
+import './Admin.css' // Importing the CSS file for styling
 
 // Define the Book interface
 interface Book {
@@ -14,57 +14,56 @@ interface Book {
 // AdminProfile component definition
 export function AdminProfile() {
     // State variables
-    const [books, setBooks] = useState([] as Book[]); // Array to store books
-    const [newBook, setNewBook] = useState({}); // New book object
-    const [selectedBook, setSelectedBook] = useState(null); // Selected book for update
-    const [errormessage, setErrorMessage] = useState('');
+    const [books, setBooks] = useState<Book[]>([]); // Array to store books
+    const [newBook, setNewBook] = useState<Partial<Book>>({}); // New book object
+    const [selectedBook, setSelectedBook] = useState<Book | null>(null); // Selected book for update
+    const [errorMessage, setErrorMessage] = useState<string>(''); // Error message state
+    const [bookname, setBookname] = useState<string>(''); // State for the book title input
 
     // Function to fetch books from the server
     async function loadAllBooks() {
         try {
             const response = await fetch('http://localhost:3000/books/SearchName');
             if (!response.ok) {
-                setErrorMessage('Error loading all books');
-                return;
+                throw new Error('Error loading all books');
             }
-            const content = await response.json() as Book[];
-            setBooks(content);
-        } catch {
-            setErrorMessage('Error loading all books');
+            const content = await response.json() as Book[]; // Parse response as an array of Book objects
+            setBooks(content); // Update the state with the fetched books
+        } catch (error) {
+            setErrorMessage('Error loading all books'); // Set error message state if fetching fails
         }
     }
 
     // Function to add a new book
     const addBook = async () => {
         try {
-            const response = await fetch("http://localhost:3000/books/}", {
-                method: "POST",
+            const response = await fetch('http://localhost:3000/books', {
+                method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(newBook),
             });
             if (!response.ok) {
-                throw new Error("Failed to add book");
+                throw new Error('Failed to add book');
             }
             setNewBook({}); // Clear new book object
-            loadAllBooks(); // Refresh book list
+            loadAllBooks(); // Refresh book list after adding a new book
         } catch (error) {
             console.error(error);
         }
     };
 
     // Function to remove a book
-    const removeBook = async (bookId) => {
+    const removeBook = async (bookId: number) => {
         try {
             const response = await fetch(`http://localhost:3000/books/${bookId}`, {
-                method: "DELETE",
+                method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error("Failed to remove book");
+                throw new Error('Failed to remove book');
             }
-            loadAllBooks(); // Refresh book list
+            loadAllBooks(); // Refresh book list after removing a book
         } catch (error) {
             console.error(error);
         }
@@ -73,19 +72,18 @@ export function AdminProfile() {
     // Function to update a book
     const updateBook = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/books/${selectedBook.id}`, {
-                method: "PUT",
+            const response = await fetch(`http://localhost:3000/books/${selectedBook?.id}`, {
+                method: 'PATCH',
                 headers: {
-                    'Accept': 'application/json',
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(selectedBook),
             });
             if (!response.ok) {
-                throw new Error("Failed to update book");
+                throw new Error('Failed to update book');
             }
-            setSelectedBook(null); // Clear selected book
-            loadAllBooks(); // Refresh book list
+            setSelectedBook(null); // Clear selected book after updating
+            loadAllBooks(); // Refresh book list after updating a book
         } catch (error) {
             console.error(error);
         }
@@ -93,66 +91,74 @@ export function AdminProfile() {
 
     // Effect to fetch books on component mount
     useEffect(() => {
-        loadAllBooks();
+        loadAllBooks(); // Load books when the component mounts
     }, []);
 
     return (
         <div className="admin-container">
-            <NavBar />
+            <NavBar /> {/* Render the NavBar component */}
             <div className="admin-content">
                 <div className="admin-section">
-                    <h2 className="admin-heading">Könyv hozzáadása</h2>
+                    <h2 className="admin-heading">Add Book</h2>
                     <div className="admin-inputs">
                         <input
                             type="text"
-                            value={newBook.title || ""}
-                            onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
-                            placeholder="Cím" />
+                            value={newBook.bookname || ''}
+                            onChange={(e) => setNewBook({ ...newBook, bookname: e.target.value })}
+                            placeholder="Title"
+                        />
                         <input
                             type="number"
-                            value={newBook.release || ""}
+                            value={newBook.release || ''}
                             onChange={(e) => setNewBook({ ...newBook, release: e.target.value })}
-                            placeholder="Kiadás" />
+                            placeholder="Release Year"
+                        />
                         <input
                             type="text"
-                            value={newBook.author || ""}
-                            onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-                            placeholder="Író" />
-                        <button onClick={addBook} className="admin-button">Könyv hozzáadása</button>
+                            value={newBook.writer || ''}
+                            onChange={(e) => setNewBook({ ...newBook, writer: e.target.value })}
+                            placeholder="Author"
+                        />
+                        <button onClick={addBook} className="admin-button">Add Book</button>
                     </div>
                 </div>
                 <div className="admin-section">
-                    <h2 className="admin-heading">Könyvek</h2>
+                    <h2 className="admin-heading">Books</h2>
                     <ul className="admin-book-list">
+                        {/* Render the list of books */}
                         {books.map((book) => (
                             <li key={book.id} className="admin-book-item">
                                 <span>{book.bookname} - {book.writer}</span>
-                                <button onClick={() => removeBook(book.id)} className="admin-remove-button">Törlés</button>
-                                <button onClick={() => setSelectedBook(book)} className="admin-update-button">Módosítás</button>
+                                <button onClick={() => removeBook(book.id)} className="admin-remove-button">Remove</button>
+                                <button onClick={() => setSelectedBook(book)} className="admin-update-button">Update</button>
                             </li>
                         ))}
                     </ul>
                 </div>
+                {/* Render update section if a book is selected */}
                 {selectedBook && (
                     <div className="admin-section">
-                        <h2 className="admin-heading">Módosítás</h2>
+                        <h2 className="admin-heading">Update Book</h2>
                         <div className="admin-inputs">
                             <input
                                 type="text"
                                 value={selectedBook.bookname}
                                 onChange={(e) => setSelectedBook({ ...selectedBook, bookname: e.target.value })}
-                                placeholder="Cím" />
+                                placeholder="Title"
+                            />
                             <input
                                 type="number"
                                 value={selectedBook.release}
                                 onChange={(e) => setSelectedBook({ ...selectedBook, release: e.target.value })}
-                                placeholder="Kiadás" />
+                                placeholder="Release Year"
+                            />
                             <input
                                 type="text"
                                 value={selectedBook.writer}
                                 onChange={(e) => setSelectedBook({ ...selectedBook, writer: e.target.value })}
-                                placeholder="Író" />
-                            <button onClick={updateBook} className="admin-button">Módosítás</button>
+                                placeholder="Author"
+                            />
+                            <button onClick={updateBook} className="admin-button">Update Book</button>
                         </div>
                     </div>
                 )}

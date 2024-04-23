@@ -1,102 +1,88 @@
-#admin{
-    margin-top: 100px;
-}
-button{
-    margin: 10px;
-}
-
-
-
-/*--------------------------------*/
-
-
+/* Admin.css */
 
 .admin-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-}
-
-.admin-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 1200px;
-}
-
-.admin-section {
-    margin-bottom: 30px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+  }
+  
+  .admin-content {
     margin-top: 100px;
-}
-
-.admin-heading {
-    margin-top: 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .admin-section {
     margin-bottom: 20px;
+  }
+  
+  .admin-heading {
     font-size: 24px;
-}
-
-.admin-inputs {
-    display: flex;
-    flex-direction: column;
-}
-
-.admin-inputs input {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .admin-inputs {
+    margin-bottom: 20px;
+  }
+  
+  .admin-inputs input {
+    width: 100%;
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.admin-book-list {
+    border-radius: 4px;
+  }
+  
+  .admin-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .admin-book-list {
     list-style-type: none;
     padding: 0;
-}
-
-.admin-book-item {
+  }
+  
+  .admin-book-item {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.admin-book-item:last-child {
-    border-bottom: none;
-}
-
-.admin-remove-button,
-.admin-update-button {
+  }
+  
+  .admin-remove-button,
+  .admin-update-button {
     padding: 8px 16px;
+    background-color: #dc3545;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-}
-
-.admin-remove-button {
-    background-color: #ff6464;
-    color: #fff;
-}
-
-.admin-update-button {
-    background-color: #4caf50;
-    color: #fff;
-}
-
-.admin-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: #fff;
-    cursor: pointer;
-}
-
-.admin-button:hover {
-    background-color: #45a049;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-update-button {
+    background-color: #28a745;
+  }
+  
+  .admin-remove-button:hover,
+  .admin-update-button:hover {
+    background-color: #c82333;
+  }
+  

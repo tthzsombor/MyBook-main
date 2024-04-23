@@ -87,7 +87,10 @@ export function LoginForm() {
             <input id="button" type="submit" value='Login' onClick={AlertL} />
           </form>
         </div>
-        {/* Registration form */}
+        {/**
+         * Registration form
+         * Regisztráció működött és működik is, a css-ben nem jó az animáció, nem ugrik fel a regisztrációs űrlap
+         */}
         <div className="signup">
           <form onSubmit={register}>
             <label htmlFor="chk" aria-hidden="true">Sign Up</label>
